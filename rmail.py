@@ -1,14 +1,22 @@
 #!/usr/bin/env python3
 # _*_coding:utf-8_*_
 # Auth by raysuen
-#v2.1
+#v2.5
+
+######################################
+#2.5 修正
+#   1 不传参数报错。
+#   2 不传邮件内容报错。
+######################################
+
+
 
 import smtplib
 from email.header import Header
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import validators
-import sys,re,os
+import re,os,sys
 import logging
 
 
@@ -19,7 +27,7 @@ class Rsendmail(object):
         "Carbon": None,  # CC,抄送接收人，多个接收人使用逗号分隔
         "smtpServer": "10.72.63.1",  # SMTP服务器
         "username": "ex_sunpeng4",  # 发送邮箱的用户名和授权码
-        "password": "Cn00c@7364",  # 发送邮箱的密码
+        "password": "Cn00c#7364",  # 发送邮箱的密码
         "title": None,  # 邮件主题
         "content": None,  # 邮件内容
         "attachment": None  # 邮件附件,多个附件以逗号分隔
@@ -70,6 +78,8 @@ class Rsendmail(object):
             # 创建一个实例
             if self.DictMailInfo["content"] != None:
                 message = MIMEText(self.DictMailInfo["content"], 'plain', 'utf-8')  # 邮件正文
+            else:
+                message = MIMEText('', 'plain', 'utf-8')  # 邮件正文
             message['From'] = self.DictMailInfo["sender"]  # 邮件上显示的发件人
             message['To'] = self.DictMailInfo["receiver"]  # 邮件上显示的收件人
             if (self.DictMailInfo["receiver"] != None) and (self.DictMailInfo["Carbon"] != None):  # 判断收件人和抄送人都非空
@@ -257,6 +267,10 @@ def GetParameters(Rsmail):
             else:
                 print("Please use -h to get help.")
                 exit(1)
+
+    else:
+        print("Please use -h to get help.")
+        exit(2)
 
 
 if __name__ == "__main__":
