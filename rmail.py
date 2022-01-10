@@ -22,12 +22,12 @@ import logging
 
 class Rsendmail(object):
     DictMailInfo = {
-        "sender": "ex_sunpeng4@cnooc.com.cn",  # 发件人
+        "sender": "*******",  # 发件人
         "receiver": None,  # 收件人,多个收件人用逗号分隔
         "Carbon": None,  # CC,抄送接收人，多个接收人使用逗号分隔
-        "smtpServer": "10.72.63.1",  # SMTP服务器
-        "username": "ex_sunpeng4",  # 发送邮箱的用户名和授权码
-        "password": "Cn00c#7364",  # 发送邮箱的密码
+        "smtpServer": "********",  # SMTP服务器
+        "username": "*******",  # 发送邮箱的用户名和授权码
+        "password": "*******",  # 发送邮箱的密码
         "title": None,  # 邮件主题
         "content": None,  # 邮件内容
         "attachment": None  # 邮件附件,多个附件以逗号分隔
