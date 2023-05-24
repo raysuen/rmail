@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # _*_coding:utf-8 _*_
 # Auth by raysuen
-#v3.1
+#v3.0
 
 ######################################
 #2.5 修正
@@ -12,9 +12,6 @@
 #   1 可以指定发送人，如果不知道发送人，发送用户和发送用户的密码，
 #     则使用脚本内部字典设定的发送人，发送用户和发送用户密码
 #   2 可以使用-f 指定参数文件，通过参数文件获取邮件参数
-
-#3.1 修正
-#   1 可以指定ssl连接smtp服务器，可以通过客户端码连接smtp服务器
 ######################################
 
 
@@ -27,7 +24,6 @@ import validators
 import re,os,sys
 import logging
 from configparser import ConfigParser
-from ansible_collections.ansible.posix.tests.utils.shippable.check_matrix import fail
 
 class Rsendmail(object):
     DictMailInfo = {
@@ -39,8 +35,7 @@ class Rsendmail(object):
         "password": None,  # 发送邮箱的密码
         "title": None,  # 邮件主题
         "content": None,  # 邮件内容
-        "attachment": None,  # 邮件附件,多个附件以逗号分隔
-        "usingssl": False
+        "attachment": None  # 邮件附件,多个附件以逗号分隔
     }
     def __init__(self, mailto=None, mailfrom=None,mailcc=None, mailsmtp=None, mailuser=None, mailpwd=None, mailtitle=None,mailcontent=None,mailattch=None):
         if mailto != None:
@@ -206,7 +201,6 @@ def help_func():
             -c:     Mail content.By default, the third parameter is the content。 
             -cc:    The addresses of carbon copy.Multiple recipients are separated by commas
             -a:     Mail attachmen.Multiple attachmen are separated by commas
-            -ssl:   Using ssl connecting.Can Using client code to connect smtp.
         EXAMPLE:
             rmail.py 123456@mail.com title content
             rmail.py -f config.ini
@@ -362,11 +356,6 @@ def GetParameters(Rsmail):
                     print("Please specify a valid value for -f.")
                     exitnum = 81
                     exit(exitnum)
-            
-            elif sys.argv[num] == "-ssl":  #指定使用ssl连接smtp服务器
-                Rsmail.DictMailInfo["usingssl"] = True
-                num += 1
-            
             elif (num == 1) and (re.match("^-", sys.argv[num]) == None) :  #判断为第一个参数并且为非-开头的参数，默认为收件人
                 if num >= len(sys.argv):  # 判断是否存在当前下标的参数
                     exitnum = 69
@@ -409,10 +398,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                         datefmt='%Y-%m-%d')
     logging.info("开始发送邮件")
-    # if myrmail.DictMailInfo["usingssl"] == False:
-    #     myrmail.send_mail()
-    # elif myrmail.DictMailInfo["usingssl"] == True:
-    myrmail.send_mail(usingssl=myrmail.DictMailInfo["usingssl"])
+    myrmail.send_mail()
     logging.info("结束发送邮件")
 
 
