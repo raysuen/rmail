@@ -14,7 +14,7 @@
 #   2 可以使用-f 指定参数文件，通过参数文件获取邮件参数
 
 #3.1 修正
-#   1 可以指定ssl连接smtp服务器，可以通过客户端码连接smtp服务器
+#   1 可以指定ssl连接smtp服务器，
 ######################################
 
 
@@ -206,7 +206,7 @@ def help_func():
             -c:     Mail content.By default, the third parameter is the content。 
             -cc:    The addresses of carbon copy.Multiple recipients are separated by commas
             -a:     Mail attachmen.Multiple attachmen are separated by commas
-            -ssl:   Using ssl connecting.Can Using client code to connect smtp.
+            -ssl:   Using ssl connecting.
         EXAMPLE:
             rmail.py 123456@mail.com title content
             rmail.py -f config.ini
@@ -218,7 +218,7 @@ def help_func():
 
 
 def GetParameters(Rsmail):
-    print(sys.argv)
+    # print(sys.argv)
     num = 1
     exitnum = 0
     # 获取参数
@@ -409,9 +409,6 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                         datefmt='%Y-%m-%d')
     logging.info("开始发送邮件")
-    # if myrmail.DictMailInfo["usingssl"] == False:
-    #     myrmail.send_mail()
-    # elif myrmail.DictMailInfo["usingssl"] == True:
     myrmail.send_mail(usingssl=myrmail.DictMailInfo["usingssl"])
     logging.info("结束发送邮件")
 

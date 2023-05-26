@@ -1,1 +1,1 @@
-MD5 = 1c6a82c053b24c13bf94478f835526f2
+MD5 (rmail.py) = c2b0db6a9c24dc925b564f37488de90b
